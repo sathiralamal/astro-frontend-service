@@ -25,14 +25,10 @@ export default async function DashboardPage() {
           </Button>
         </div>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-xl border bg-card text-card-foreground shadow">
-          <div className="p-6 flex flex-col space-y-2">
-            <p className="text-sm text-muted-foreground">Welcome back</p>
-            <p className="text-2xl font-bold">{session.user?.name}</p>
+      <div>
+        <p>Welcome to your dashboard, {session.user?.name}!</p>
           </div>
-        </div>
-      </div>
+          
     </div>
   );
 }
