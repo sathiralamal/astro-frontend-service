@@ -18,7 +18,7 @@ export default async function Home() {
         <div className="flex h-20 items-center justify-between py-6">
           <div className="flex gap-6 md:gap-10">
             <Link href="/" className="items-center space-x-2 flex">
-              <span className="font-bold inline-block">Your App</span>
+              <span className="font-bold inline-block">Astro</span>
             </Link>
           </div>
           <nav>
