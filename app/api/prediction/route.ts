@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     console.log("Calling prediction service...");
 
     const response = await fetch(
-      "http://localhost:3000/api/v1/chart/generate",
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/chart/generate`,
       {
         method: "POST",
         headers: {
