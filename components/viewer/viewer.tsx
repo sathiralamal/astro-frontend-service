@@ -1,9 +1,10 @@
 import { astroStore } from "@/lib/astro-store";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./viewer.module.css";
+import Predication from "@/app/types/predication";
+import MarkdownContent from "./MarkdownContent";
 
-export default function Viewer() {
-  const predictions = astroStore((state) => state.predictions);
+export default function Viewer(props: { predictions: Array<Predication> }) {
   const [blur, setBlur] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -12,7 +13,7 @@ export default function Viewer() {
     const scrollPercentage =
       (element.scrollTop / (element.scrollHeight - element.clientHeight)) * 100;
 
-    if (scrollPercentage > 35) {
+    if (scrollPercentage > 100) {
       setBlur(true);
     } else {
       setBlur(false);
@@ -25,10 +26,10 @@ export default function Viewer() {
       className={`${styles.viewer} ${blur ? styles.blur : ""}`}
       onScroll={handleScroll}
     >
-      {predictions?.map((prediction, index) => (
-        <p key={prediction.responseId || index} className={styles.content}>
-          {prediction.text}
-        </p>
+      {props.predictions?.map((prediction, index) => (
+        <div key={prediction.responseId || index} className={styles.content}>
+          <MarkdownContent content={prediction.text} />
+        </div>
       ))}
     </div>
   );

@@ -3,9 +3,13 @@
 import BirthForm from "@/components/brithform/BirthForm";
 import Viewer from "@/components/viewer/viewer";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { signOut } from "next-auth/react";
+import { astroStore } from "@/lib/astro-store";
 
 export default function DashboardClient({ session }: { session: any }) {
+    const predictions = astroStore((state) => state.predictions);
+  
   const handleSignOut = () => {
     signOut({ redirect: true, callbackUrl: "/login" });
   };
@@ -16,13 +20,16 @@ export default function DashboardClient({ session }: { session: any }) {
         <h1 className="text-2xl font-semibold">
           Welcome, {session?.user?.name || "User"} 👋
         </h1>
-        <Button variant="destructive" onClick={handleSignOut}>
-          Sign Out
-        </Button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Button variant="destructive" onClick={handleSignOut}>
+            Sign Out
+          </Button>
+        </div>
       </div>
       <div className="mt-6">
         <BirthForm />
-        <Viewer />
+       {predictions.length > 0 && <Viewer predictions={predictions} />}
       </div>
     </div>
   );

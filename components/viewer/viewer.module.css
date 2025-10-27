@@ -35,3 +35,65 @@
   white-space: pre-wrap;
   margin: 0;
 }
+
+.markdownContent {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #374151;
+}
+
+.markdownContent :global(h1) {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.markdownContent :global(h2) {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0.83em 0;
+}
+
+.markdownContent :global(h3) {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin: 0.67em 0;
+}
+
+.markdownContent :global(strong) {
+  font-weight: bold;
+}
+
+.markdownContent :global(em) {
+  font-style: italic;
+}
+
+.markdownContent :global(hr) {
+  border: none;
+  border-top: 2px solid #e5e7eb;
+  margin: 1.5em 0;
+}
+
+.markdownContent :global(ul),
+.markdownContent :global(ol) {
+  padding-left: 2em;
+  margin: 0.1em 0;
+}
+
+.markdownContent :global(li) {
+  margin: 0.1em 0;
+}
+
+.markdownContent :global(code) {
+  background-color: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25em;
+  font-family: monospace;
+}
+
+.markdownContent :global(blockquote) {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #6b7280;
+}
