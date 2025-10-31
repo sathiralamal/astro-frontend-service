@@ -27,7 +27,7 @@ export async function POST(req: Request) {
 
     const data = await response.json();
     if (data.error) {
-      throw new Error("Prediction service error");
+      throw Error("Prediction service error");
     }
     console.log("Prediction service response:", data);
 
