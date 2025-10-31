@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { astroStore } from "@/lib/astro-store";
+import { useLoading } from "@/app/LoadingProvider";
 
 export default function BirthForm() {
   const [step, setStep] = useState(1);
@@ -9,6 +10,7 @@ export default function BirthForm() {
   const [birthTime, setBirthTime] = useState("");
   const [birthPlace, setBirthPlace] = useState("");
   const addToPredictions = astroStore((state: any) => state.addToPredictions);
+  const { start, stop } = useLoading();
 
   const handleNextStep = () => {
     if (step < 3) {
@@ -30,21 +32,33 @@ export default function BirthForm() {
       birthTime,
       birthPlace
     );
+    start();
+    try {
+      const res = await fetch("/api/prediction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          birthDate,
+          birthTime,
+          birthPlace,
+        }),
+      });
 
-    let data = await fetch("/api/prediction", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        birthDate,
-        birthTime,
-        birthPlace,
-      }),
-    });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Prediction API error: ${res.status} ${text}`);
+      }
 
-    let parsedData = await data.json();
-    addToPredictions(parsedData.data.data);
+      const parsedData = await res.json();
+      addToPredictions(parsedData.data.data);
+    } catch (err) {
+      console.error("Failed to fetch prediction:", err);
+      // Optionally provide UI feedback here
+    } finally {
+      stop();
+    }
   };
 
   return (

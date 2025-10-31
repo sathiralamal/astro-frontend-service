@@ -9,6 +9,7 @@ import { signIn } from "next-auth/react";
 import { registerSchema } from "@/lib/validations/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useLoading } from "@/app/LoadingProvider";
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
@@ -16,6 +17,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { start, stop } = useLoading();
 
   const {
     register,
@@ -29,6 +31,8 @@ export default function RegisterPage() {
     try {
       setIsLoading(true);
       setError(null);
+
+      start();
 
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -69,6 +73,7 @@ export default function RegisterPage() {
       }
     } finally {
       setIsLoading(false);
+      stop();
     }
   };
 

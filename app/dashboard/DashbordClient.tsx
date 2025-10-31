@@ -15,7 +15,7 @@ export default function DashboardClient({ session }: { session: any }) {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-b from-background via-background to-muted">
+    <div className="p-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">
           Welcome, {session?.user?.name || "User"} 👋

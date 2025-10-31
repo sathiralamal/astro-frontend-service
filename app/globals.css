@@ -46,3 +46,8 @@
     --ring: 240 4.9% 83.9%;
   }
 }
+
+/* Global spinner overlay utility (thin enhancements) */
+.spinner-overlay {
+  backdrop-filter: blur(2px);
+}
