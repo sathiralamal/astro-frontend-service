@@ -3,6 +3,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { astroStore } from "@/lib/astro-store";
 import { useLoading } from "@/app/LoadingProvider";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function BirthForm() {
   const [step, setStep] = useState(1);
@@ -11,6 +12,7 @@ export default function BirthForm() {
   const [birthPlace, setBirthPlace] = useState("");
   const addToPredictions = astroStore((state: any) => state.addToPredictions);
   const { start, stop } = useLoading();
+  const { toast } = useToast();
 
   const handleNextStep = () => {
     if (step < 3) {
@@ -55,7 +57,14 @@ export default function BirthForm() {
       addToPredictions(parsedData.data.data);
     } catch (err) {
       console.error("Failed to fetch prediction:", err);
-      // Optionally provide UI feedback here
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description:
+          err instanceof Error
+            ? err.message
+            : "Failed to fetch prediction. Please try again.",
+      });
     } finally {
       stop();
     }
