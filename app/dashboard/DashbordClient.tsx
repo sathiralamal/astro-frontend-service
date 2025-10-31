@@ -8,14 +8,14 @@ import { signOut } from "next-auth/react";
 import { astroStore } from "@/lib/astro-store";
 
 export default function DashboardClient({ session }: { session: any }) {
-    const predictions = astroStore((state) => state.predictions);
-  
+  const predictions = astroStore((state) => state.predictions);
+
   const handleSignOut = () => {
     signOut({ redirect: true, callbackUrl: "/login" });
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-gradient-to-b from-background via-background to-muted">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">
           Welcome, {session?.user?.name || "User"} 👋
@@ -29,7 +29,7 @@ export default function DashboardClient({ session }: { session: any }) {
       </div>
       <div className="mt-6">
         <BirthForm />
-       {predictions.length > 0 && <Viewer predictions={predictions} />}
+        {predictions.length > 0 && <Viewer predictions={predictions} />}
       </div>
     </div>
   );

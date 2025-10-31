@@ -13,7 +13,7 @@ export default function Viewer(props: { predictions: Array<Predication> }) {
     const scrollPercentage =
       (element.scrollTop / (element.scrollHeight - element.clientHeight)) * 100;
 
-    if (scrollPercentage > 100) {
+    if (scrollPercentage > 32) {
       setBlur(true);
     } else {
       setBlur(false);
